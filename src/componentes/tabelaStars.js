@@ -9,7 +9,7 @@ export default class Table extends Component {
         this.state = {arrayProjeto:[]}
     }
     componentDidMount() {  
-        for(var i=12; i>=1; i-- ){
+        for(var i=10; i>=1; i-- ){
             //fetch(`https://api.github.com/search/repositories?q=stars%3A%3E9000&per_page=100&page= ${i}` )
             fetch(`https://api.github.com/search/repositories?q=forks%3A>1000&per_page=100&page= ${i}` )
             .then(response => response.json())
@@ -18,7 +18,7 @@ export default class Table extends Component {
                     proj.license = proj.license ? proj.license.name : 'null'
                 )                
                 for(let i=0; i<100; i++ ){   
-                    if (projetos.items[i].language != null && this.state.arrayProjeto.length <= 100){
+                    if (projetos.items[i].language != null && this.state.arrayProjeto.length <= 1000){
                         this.setState({ arrayProjeto: this.state.arrayProjeto.concat(projetos.items[i]) })
                     }    
                     
