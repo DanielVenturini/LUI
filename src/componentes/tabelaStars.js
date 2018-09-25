@@ -6,7 +6,7 @@ import './componentes.css'
 export default class Table extends Component {
     constructor() {
         super()
-        this.state = {arrayProjeto:[]}
+        this.state = {arrayProjeto:[],lecense:0,linguagem:0}
     }
     componentDidMount() {  
         for(var i=10; i>=1; i-- ){
@@ -14,21 +14,20 @@ export default class Table extends Component {
             fetch(`https://api.github.com/search/repositories?q=forks%3A>1000&per_page=100&page= ${i}` )
             .then(response => response.json())
             .then(projetos => {
-                projetos.items.map(proj =>  //verifica se possui licença
+                projetos.items.map(function (proj) {  //verifica se possui licença
                     proj.license = proj.license ? proj.license.name : 'null'
+                    return true
+                }
                 )                
                 for(let i=0; i<100; i++ ){   
-                    if (projetos.items[i].language != null && this.state.arrayProjeto.length <= 1000){
-                        this.setState({ arrayProjeto: this.state.arrayProjeto.concat(projetos.items[i]) })
-                    }    
-                    
-                    if(this.state.arrayProjeto.length === 1000){
-                        console.log('fumego')
-                    }
+                    this.setState({ arrayProjeto: this.state.arrayProjeto.concat(projetos.items[i]) })
                 }
             })
+            
         }
+        
     }
+
 
     render() {
               
@@ -40,11 +39,14 @@ export default class Table extends Component {
                     <TableHeaderColumn dataField='created_at'       dataSort={ true }> created_at          </TableHeaderColumn>
                     <TableHeaderColumn dataField='size'             dataSort={ true }> size                </TableHeaderColumn>
                    
-                    <TableHeaderColumn dataField='watchers'         dataSort={ true }> watchers            </TableHeaderColumn>
+                    <TableHeaderColumn dataField='stargazers_count' dataSort={true}> stargazers_count      </TableHeaderColumn>
                     <TableHeaderColumn dataField='forks_count'      dataSort={ true }> forks_count         </TableHeaderColumn>
                     <TableHeaderColumn dataField='open_issues_count'dataSort={ true }> open_issues_count   </TableHeaderColumn>
                     <TableHeaderColumn dataField='license'          dataSort={ true }> license             </TableHeaderColumn>
                     <TableHeaderColumn dataField='language'         dataSort={ true }> linguagem           </TableHeaderColumn>
+                    <TableHeaderColumn dataField='open_issues_count'dataSort={ true }> open_issues_count   </TableHeaderColumn>
+                    <TableHeaderColumn dataField='fork'             dataSort={ true }> fork                </TableHeaderColumn>
+
                 </BootstrapTable>
             </div>
         )
