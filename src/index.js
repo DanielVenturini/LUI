@@ -5,7 +5,6 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 
 import TableStars from './componentes/tabelaStars'
 
-
 ReactDOM.render(
 <BrowserRouter>
     <App>

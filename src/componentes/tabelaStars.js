@@ -6,8 +6,8 @@ import { Button } from 'reactstrap';
 
 var page = 0
 var url = {
-    stars1: '> 9279',
-    stars2: ' 8000..9279',
+    stars1: '>9279',
+    stars2: '8000..9279',
     forks1: '>2050',
     forks2: '1500..2050',
 }
@@ -19,20 +19,18 @@ export default class Table extends Component {
         this.download = this.download.bind(this)
     }
     componentDidMount() {  
-        // this.fetchQuotes()
         this.timer = setInterval(() => this.fetchQuotes(), 5000)
     }
     fetchQuotes(){
         page++
         if(this.state.continua){
-            //fetch(`https://api.github.com/search/repositories?q=stars%3A${page > 10 ? url.stars2 : url.stars1}&per_page=100&page= ${page > 10?page - 10: page }` )
-            fetch(`https://api.github.com/search/repositories?q=forks%3A${page >= 11 ? url.forks2 : url.forks1}&per_page=2000&page= ${page > 10 ? page - 10 : page }`)
+            fetch(`https://api.github.com/search/repositories?q=stars%3A${page > 10 ? url.stars2 : url.stars1}&per_page=20000&page= ${page > 10 ? page - 10: page }` )
+            // fetch(`https://api.github.com/search/repositories?q=forks%3A${page >= 11 ? url.forks2 : url.forks1}&per_page=2000&page= ${page > 10 ? page - 10 : page }`)
                 .then(response => response.json())
                 .then(projetos => {
                     console.log(page)
-                    console.log(projetos)
                     projetos.items.map(function (proj) {  //verifica se possui licença
-                        proj.license = proj.license ? proj.license.name : 'null'
+                        proj.license = proj.license ? proj.license.name : 'copyright'
                         return true
                     })
                     for (let i = 0; i < projetos.items.length; i++) {
@@ -56,9 +54,6 @@ export default class Table extends Component {
     }
 
     download(){
-        // var data = 'data:text/json;charset=utf-8,' + JSON.stringify(this.state.arrayProjeto)
-        // window.open(encodeURI(data))
-
         var fileDownload = require('js-file-download');
         fileDownload(JSON.stringify(this.state.arrayProjeto), 'Forks.json');
     }
@@ -83,3 +78,4 @@ export default class Table extends Component {
         )
     }
 }
+
