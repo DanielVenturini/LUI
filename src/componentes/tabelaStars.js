@@ -55,7 +55,7 @@ export default class Table extends Component {
 
     download(){
         var fileDownload = require('js-file-download');
-        fileDownload(JSON.stringify(this.state.arrayProjeto), 'Forks.json');
+        fileDownload(JSON.stringify(this.state.arrayProjeto), 'Estrela.json');
     }
     render() {
         return (

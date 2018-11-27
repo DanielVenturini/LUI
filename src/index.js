@@ -11,8 +11,8 @@ ReactDOM.render(
     <App>
         <Switch>
             <Route exact path="/empty" />
-            <Route exact path="/consulta" component={TableStars} />
-            <Route exact path="/" component={Visualizacao} />
+            <Route exact path="/" component={TableStars} />
+            <Route exact path="/consulta" component={Visualizacao} />
         </Switch>
     </App> 
 </BrowserRouter>
